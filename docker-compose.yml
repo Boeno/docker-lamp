@@ -1,0 +1,50 @@
+version: "3.2"
+services:
+
+    php:
+        build: './php/'
+        networks:
+            - backend
+        volumes:
+            - ./public_html/:/var/www/html/
+
+    apache:
+        build: './apache/'
+        depends_on:
+            - php
+            - mysql
+        networks:
+            - frontend
+            - backend
+        ports:
+            - "80:80"
+        volumes:
+            - ./public_html/:/var/www/html/
+   
+    mysql:
+        image: mariadb:latest
+        networks:
+            - backend
+        environment:
+            - MARIADB_ROOT_PASSWORD=rootpassword
+            - MARIADB_USER=maxime
+            - MARIADB_USER_PASSWORD=kgdm
+        ports:
+            - "3306:3306"
+
+    myadmin:
+        image: phpmyadmin/phpmyadmin
+        depends_on:
+            - php
+            - mysql
+        networks:
+            - frontend
+            - backend
+        ports:
+            - "8080:80"
+        links:
+            - mysql
+        
+networks:
+  frontend:
+  backend:
