@@ -27,8 +27,8 @@ services:
             - backend
         environment:
             - MARIADB_ROOT_PASSWORD=rootpassword
-            - MARIADB_USER=maxime
-            - MARIADB_USER_PASSWORD=kgdm
+            - MARIADB_USER=user
+            - MARIADB_USER_PASSWORD=userpassword
         ports:
             - "3306:3306"
 
