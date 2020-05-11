@@ -26,11 +26,13 @@ services:
         networks:
             - backend
         environment:
-            - MARIADB_ROOT_PASSWORD=rootpassword
-            - MARIADB_USER=user
-            - MARIADB_USER_PASSWORD=userpassword
+            - MYSQL_ROOT_PASSWORD=rootpassword
+            - MYSQL_USER=user
+            - MYSQL_USER_PASSWORD=userpassword
         ports:
             - "3306:3306"
+        volumes:
+            - "./mysql_data:/var/lib/mysql"
 
     myadmin:
         image: phpmyadmin/phpmyadmin
