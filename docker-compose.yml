@@ -32,12 +32,12 @@ services:
         ports:
             - "3306:3306"
         volumes:
-            - "./mysql_data:/var/lib/mysql"
+            - "./mysql/mysql_data:/var/lib/mysql"
+            - "./mysql/mysql_config:/etc/mysql/conf.d"
 
-    myadmin:
+    pma:
         image: phpmyadmin/phpmyadmin
         depends_on:
-            - php
             - mysql
         networks:
             - frontend
@@ -46,6 +46,9 @@ services:
             - "8080:80"
         links:
             - mysql
+        environment: 
+            - PMA_HOST=mysql
+            - PMA_PORT=3306
         
 networks:
   frontend:
